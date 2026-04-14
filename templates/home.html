@@ -5,10 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FWI PREDICTION</title>
 </head>
+    <style>
+        body{
+            background-image: url("/static/Wildfire\ forest.png");
+        }
+        body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65); /* increase darkness */
+        z-index: -1;
+    }
+        h1{
+            text-align: center;
+            font-size: 45px;
+            font-family: 'Poppins', sans-serif;
+            color: #ffcc70;
+            text-shadow: 
+            0 0 8px orange,
+            0 0 15px red,
+            2px 2px 10px rgba(0,0,0,0.7);
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+        form{
+            width: 400px;
+            /* background: rgba(0, 0, 0, 0.6); */
+            padding: 25px;
+            border-radius: 10px;
+        }
+        .form-container{
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        input {
+        width: 100%;
+        padding: 12px;   /* increases height */
+        box-sizing: border-box;
+        background-color: #ffcc70;
+        margin-bottom: 10px;
+        box-shadow:
+        0 0 5px orange,
+        0 0 10px red;
+
+        }
+        select, button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ffcc70;
+        margin-bottom: 10px;
+         box-shadow: 
+        0 0 8px orange,
+        0 0 15px red;
+        color:#888;  /* or #555 for softer look */
+        }
+        .result{
+            text-align: center;
+            font-size: 28px;
+            margin-top: -10px;
+            font-family: 'Poppins', sans-serif;
+            color: #ffcc70;
+            text-shadow: 
+            0 0 8px orange,
+            0 0 15px red,
+            2px 2px 10px rgba(0,0,0,0.7);
+        }
+        input, select, button {
+        border: none;
+        outline: none;
+        appearance: none;
+    }
+    form {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    }
+    input, select {
+        transition: all 0.2s ease;
+    }
+    input:focus,
+    select:focus {
+      color: #888;
+      background-color: #4b3103;
+        transform: scale(1.02);
+    }
+
+    button {
+    width: 50%;
+    padding: 12px;
+    background: linear-gradient(45deg, #ffcc70, #ff8c00);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    transition: all 0.3s ease;
+    margin: 10px auto 0;
+    display: block;
+    box-shadow:
+        0 0 8px orange,
+        0 0 15px red;
+    }
+    button:hover{
+        cursor: pointer;
+        transform: translateY(-2px) scale(1.02);
+        box-shadow:
+        0 0 15px orange,
+        0 0 25px red;
+    }
+    </style>
     <body>
     <h1>FWI PREDICTION</h1>
 
     <!-- ##form for entering input fields -->
+    <div class="form-container">
     <form action="{{url_for('predict_datapoint')}}" method="post">
 
         <input type="text" name="Temperature" placeholder="Temperature" required="required"/><br>
@@ -25,16 +140,23 @@
 
         <input type="text" name="ISI" placeholder="ISI" required="required"><br>
 
-        <input type="text" name="Classes" placeholder="Classes" required="required"><br>
+        <select name="Classes">
+            <option value="0">Not Fire</option>
+            <option value="1">Fire</option>
+        </select>
+        <br>
 
-        <input type="text" name="Region" placeholder="Region" required="required"><br>
+       <select name="Region">
+            <option value="0">Bejaia (Northeast)</option>
+            <option value="1">Sidi Bel Abbes (Northwest)</option>
+        </select>
 
 
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
 
     </form>
-
-        <h2>
+    </div>
+        <h2 class="result">
             The FWI prediction is {{results}}
         </h2>
     </body>
