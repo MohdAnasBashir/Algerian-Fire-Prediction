@@ -70,7 +70,7 @@ def predict_datapoint():
 
     # Block direct access
     if not data:
-        return render_template('home.html', results="⚠️ Please predict fire first")
+        return render_template('home.html', results="⚠️ Please predict fire first", data={})
     if request.method == 'POST':
     # Extract values
         Temperature=float(data.get('Temperature'))

@@ -197,7 +197,10 @@ a{
 <h2 class="result">
     Result: {{results}}
 </h2>
-
-<a href="/predictdata" class="fwi-btn"> Check FWI →</a>
+{% if results == "Fire Detected" %}
+    <a href="{{ url_for('predict_datapoint') }}">
+        <button>Check FWI →</button>
+    </a>
+{% endif %}
 </body>
 </html>
