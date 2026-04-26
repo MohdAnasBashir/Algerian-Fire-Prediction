@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FWI PREDICTION</title>
-</head>
+    <title>Clasfication model</title>
     <style>
         body{
-            background-image: url("/static/Wildfire\ forest.png");
+            background-image: url("/static/Wildfire forest.png");
         }
         body::before {
         content: "";
@@ -19,7 +18,7 @@
         background: rgba(0, 0, 0, 0.65); /* increase darkness */
         z-index: -1;
     }
-        h1{
+     h1{
             text-align: center;
             font-size: 45px;
             font-family: 'Poppins', sans-serif;
@@ -31,7 +30,7 @@
             margin-top: 40px;
             margin-bottom: 10px;
         }
-        form{
+         form{
             width: 400px;
             /* background: rgba(0, 0, 0, 0.6); */
             padding: 25px;
@@ -67,7 +66,7 @@
         .result{
             text-align: center;
             font-size: 28px;
-            margin-top: -10px;
+            margin-top: -25px;
             font-family: 'Poppins', sans-serif;
             color: #ffcc70;
             text-shadow: 
@@ -93,7 +92,6 @@
       background-color: #4b3103;
         transform: scale(1.02);
     }
-
     button {
     width: 50%;
     padding: 12px;
@@ -117,64 +115,89 @@
         0 0 15px orange,
         0 0 25px red;
     }
+    .fwi-btn {
+    width: 200px;
+    margin: 15px auto;  /* centers it */
+    /* width: 50%; */
+    padding: 12px;
+    background: linear-gradient(45deg, #ffcc70, #ff8c00);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    /* white-space: nowrap; */
+    font-weight: 600;
+    color: #222;
+    transition: all 0.3s ease;
+    /* margin: 10px auto 0; */
+    display: block;
+    box-shadow:
+        0 0 8px orange,
+        0 0 15px red;
+}
+
+.fwi-btn:hover {
+       cursor: pointer;
+        transform: translateY(-2px) scale(1.02);
+        box-shadow:
+        0 0 15px orange,
+        0 0 25px red;
+}
+a{
+    text-decoration: none;
+    text-align: center;
+}
     </style>
-    <body>
-    <h1>FWI PREDICTION</h1>
-
-    <!-- ##form for entering input fields -->
+</head>
+<body>
+    <h1>Forest Fire Prediction System</h1>
     <div class="form-container">
-    <form action="{{url_for('predict_datapoint')}}" method="post">
+    <form action="{{url_for('predict_datapointclass')}}" method="post">
 
-       <input type="text" name="Temperature"
+    <input type="number" step="any" name="Temperature"
        value="{{ data.get('Temperature','') }}"
        placeholder="Temperature" required><br>
 
-        <input type="text" name="RH"
-            value="{{ data.get('RH','') }}"
-            placeholder="Relative Humidity" required><br>
+    <input type="number" step="any" name="RH"
+        value="{{ data.get('RH','') }}"
+        placeholder="Relative Humidity" required><br>
 
-        <input type="text" name="Ws"
-            value="{{ data.get('Ws','') }}"
-            placeholder="Wind Speed" required><br>
+    <input type="number" step="any" name="Ws"
+        value="{{ data.get('Ws','') }}"
+        placeholder="Wind Speed" required><br>
 
-        <input type="text" name="Rain"
-            value="{{ data.get('Rain','') }}"
-            placeholder="Rain" required><br>
+    <input type="number" step="any" name="Rain"
+        value="{{ data.get('Rain','') }}"
+        placeholder="Rain" required><br>
 
-        <input type="text" name="FFMC"
-            value="{{ data.get('FFMC','') }}"
-            placeholder="FFMC" required><br>
+    <input type="number" step="any" name="FFMC"
+        value="{{ data.get('FFMC','') }}"
+        placeholder="FFMC" required><br>
 
-        <input type="text" name="DMC"
-            value="{{ data.get('DMC','') }}"
-            placeholder="DMC" required><br>
+    <input type="number" step="any" name="DMC"
+        value="{{ data.get('DMC','') }}"
+        placeholder="DMC" required><br>
 
-        <input type="text" name="ISI"
-            value="{{ data.get('ISI','') }}"
-            placeholder="ISI" required><br>
-
-        <!-- <select name="Classes">
-            <option value="0">Not Fire</option>
-            <option value="1">Fire</option>
-        </select> -->
-        <!-- <br> -->
+    <input type="number" step="any" name="ISI"
+        value="{{ data.get('ISI','') }}"
+        placeholder="ISI" required><br>
 
        <select name="Region">
-    <option value="0" {% if data.get('Region') == '0' %}selected{% endif %}>
-        Bejaia
-    </option>
-    <option value="1" {% if data.get('Region') == '1' %}selected{% endif %}>
-        Sidi Bel Abbes
-    </option>
+        <option value="0" {% if data.get('Region') == '0' %}selected{% endif %}>
+            Bejaia (Northeast)
+        </option>
+        <option value="1" {% if data.get('Region') == '1' %}selected{% endif %}>
+            Sidi Bel Abbes (Northwest)
+        </option>
 </select>
 
+    <button type="submit">Predict</button>
 
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+</form>
+</div>
+<h2 class="result">
+    Result: {{results}}
+</h2>
 
-    </form>
-    </div>
-        <h2 class="result">
-            The FWI prediction is {{results}}
-        </h2>
-    </body>
+<a href="/predictdata" class="fwi-btn"> Check FWI →</a>
+</body>
 </html>
